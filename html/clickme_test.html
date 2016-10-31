@@ -1,0 +1,58 @@
+<html>
+
+	<head>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
+	 		var socket = io();
+	 		var height = $(window).height(); 
+	 		var width = $(window).width(); 
+	 		var mouseDownX;
+	 		var mouseDownY;
+	 		var x_loc = 400;
+	 		var y_loc = 400;
+	 		$(document).ready(function(){
+	   			$('#canvas').css('border','1px solid black');
+			   	$('#canvas').mousedown(function(event){
+			 		var point = getRelativeCoords(event);
+			 		mouseDownX = point['x'];
+			 		mouseDownY = point['y'];
+		 		});	
+		 		$('#canvas').mouseup(function(event){
+			 		var point = getRelativeCoords(event);
+			 		var newX = mouseDownX - point['x'] + x_loc;
+			 		var newY = mouseDownY - point['y'] + y_loc;
+			 		if (newX > 1200) newX = 1200;
+			 		if (newY > 1200) newY = 1200;
+			 		if (newX < 0) newX = 0;
+			 		if (newY < 0) newY = 0;
+			 		x_loc = newX;
+			 		y_loc = newY;
+
+			 		$('#point').text('x:' + newX + " y:" + newY);
+		 		});	
+
+	 		});
+	 		
+	 		socket.on('point', function(msg){
+	 			var point = msg.split(',');
+	 			var x = point[0];
+	 			var y = point[1];
+	 			var ctx = document.getElementById('canvas').getContext("2d");
+	 			ctx.beginPath();
+	 			ctx.arc(x,y,40,0,2*Math.PI);
+				ctx.stroke();
+  			});
+	 		function getRelativeCoords(event) {
+   				return { x: event.offsetX, y: event.offsetY };
+			}
+	 		
+		</script>
+		<title>Socket.IO chat</title>
+ 	</head>
+  	<body>
+  		<canvas id="canvas" width="400" height="400"></canvas>
+  		<p id='point'>x: 400 y:400</p>
+  		
+  	</body>
+</html>
