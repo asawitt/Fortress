@@ -304,6 +304,9 @@ Game.prototype.keyUp = function(event) {
 function addBuilding(v, t) {
 	if (!gameobject.isHexFree(v.x, v.y))
 		return false;
+	//checks if the hex is connected to the rest of their buildings
+	if (t!='fortress' && !hexIsConnected(v.x, v.y))
+		return false;
 	
 	var b = gameobject.createBuilding(player.ID, t);
 	if (b == null)
@@ -316,6 +319,16 @@ function addBuilding(v, t) {
 	b.pos.y = p.y;
 	map[v.x][v.y] = b;
 	return true;
+	//Returns true if the given x,y are adjacent to one of the player's pre-existing buildings
+	function hexIsConnected(x, y){
+		var t = player.buildings.some(function(b){
+			var xDif = b.hex.x - x;
+			var yDif = b.hex.y - y;
+			if (Math.abs(xDif) <= 1 && Math.abs(yDif) <= 1 && (xDif != yDif || xDif == 0)) return true;
+			return false;
+		});
+		return t;
+	}
 }
 
 // Add a unit and send it to location v
@@ -802,6 +815,7 @@ var towerImage = new Image();
 towerImage.src = "./images/towers.png";
 var fortressImage = new Image();
 fortressImage.src = "./images/fortress.png";
+fortressImage.style.height = 20;
 
 var selectedHUDElement = null;
 
@@ -1039,11 +1053,11 @@ function drawFortressInformation(){
 	// ctx.drawImage(fortressImage, 0, 0, HUD_IMAGE_WIDTH, HUD_HEIGHT, 4*HUD_IMAGE_WIDTH + left, canvas.height - HUD_HEIGHT + 5, 3*HUD_IMAGE_WIDTH/4, 3*HUD_HEIGHT/4);
 
 	ctx.fillText("Max Health: " + fortressMaxHealth, left + 5*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
-	ctx.fillText("AttackSpeed: " + fortressAttackSpeed.toFixed(2), left + 5*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing*2);
-	ctx.fillText("Damage: " + fortressDamage, left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
-	ctx.fillText("Range: " + fortressRange, left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + 2*spacing);
+	// ctx.fillText("AttackSpeed: " + fortressAttackSpeed.toFixed(2), left + 5*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing*2);
+	// ctx.fillText("Damage: " + fortressDamage, left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
+	// ctx.fillText("Range: " + fortressRange, left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + 2*spacing);
 
-	if (upgradeHover(4)){
+	if (upgradeHover(1)){
 		ctx.fillStyle = "#aa0000";
 		ctx.fillText("Gold: " + Math.floor(player.gold) + "(-" + upgradeCost + ")", left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
 	} else {
@@ -1055,9 +1069,9 @@ function drawFortressInformation(){
 	ctx.fillStyle = "#2a5393";
 
 	ctx.fillText("⊞", left + 5*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + spacing);
-	ctx.fillText("⊞", left + 5*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + 2*spacing);
-	ctx.fillText("⊞", left + 7*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + spacing);
-	ctx.fillText("⊞", left + 7*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + 2*spacing);
+	// ctx.fillText("⊞", left + 5*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + 2*spacing);
+	// ctx.fillText("⊞", left + 7*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + spacing);
+	// ctx.fillText("⊞", left + 7*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + 2*spacing);
 
 
 }

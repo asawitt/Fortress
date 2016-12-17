@@ -39,7 +39,7 @@ var Tower = function(playerID, id) {
 	
 	this.range = 150;
 	this.damage = 5;
-	this.attackSpeed = 1; // attacks per second
+	this.attackSpeed = .2; // attacks per second
 	this.timeSinceLastAttack = 0;
 	this.target = null;
 	this.update = function(delta) {
@@ -60,6 +60,7 @@ var Tower = function(playerID, id) {
 					this.target.changeHealth(-this.damage);
 					var from = {playerID: this.playerID, ID: this.ID, isUnit: false};
 					var to = {playerID: this.target.playerID, ID: this.target.ID, isUnit: this.target.angle != undefined};
+					
 					gameobject.changes.push({type: 'healthChanged', from: from, to: to, amt: -this.damage});
 				} else {
 					var ray = new Ray(this.playerID, {x: this.pos.x, y: this.pos.y}, {x: this.target.pos.x, y: this.target.pos.y});
@@ -73,12 +74,13 @@ var Tower = function(playerID, id) {
 
 // The main building of a player. The player loses if this building is destroyed
 var Fortress = function(playerID, id) {
-	Tower.call(this, playerID, id);
+	Building.call(this, playerID, id);
+	// Tower.call(this, playerID, id); //Building acts as a tower
 	this.type = 'fortress';
 	this.yield = 1;
-	this.damage = 10;
-	this.attackSpeed = 1; 
-	this.range = 200;
+	// this.damage = 10;
+	// this.attackSpeed = 1; 
+	// this.range = 200;
 	this.maxHealth = 300;
 	this.health = 300;
 	this.reward = 100;
