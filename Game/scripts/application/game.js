@@ -960,20 +960,8 @@ function drawUnitInformation(){
 	ctx.fillText(Unit.upgradeStrings[4] + Unit.upgradeVals[4], left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
 	ctx.fillText(Unit.upgradeStrings[5] + Unit.upgradeVals[5], left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing*2);
 
-	var upgradeNum = upgradeHover(5);
-	if (upgradeNum){
-		changeCursor("pointer");
-		ctx.fillStyle = "#aa0000";
-		ctx.fillText("Gold: " + Math.floor(player.gold) + "(-" + Unit.upgradeCosts[upgradeNum] + ")", left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
-	} else {
-		changeCursor("auto");
-		ctx.fillStyle = "#00aa00";
-		ctx.fillText("Gold: " + Math.floor(player.gold), left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
-	}
-
 	ctx.font = "25px sans-serif";
 	ctx.fillStyle = "#2a5393";
-
 	ctx.fillText("⊞", left + 5*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + spacing);
 	ctx.fillText("⊞", left + 5*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + 2*spacing);
 	ctx.fillText("⊞", left + 5*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + 3*spacing);
@@ -981,6 +969,18 @@ function drawUnitInformation(){
 	ctx.fillText("⊞", left + 7*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + 2*spacing);
 
 
+	ctx.font = "bold 20px  sans-serif";
+	var upgradeNum = upgradeHover(Unit.numberOfUpgrades);
+	if (upgradeNum){
+		changeCursor("pointer");
+		ctx.fillStyle = "#aa0000";
+		ctx.fillText("Gold: " + Math.floor(player.gold) + "(-" + Unit.upgradeCosts[upgradeNum] + ")", 
+			left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
+	} else {
+		changeCursor("auto");
+		ctx.fillStyle = "#00aa00";
+		ctx.fillText("Gold: " + Math.floor(player.gold), left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
+	}
 }
 
 function drawMineInformation(){
@@ -990,12 +990,15 @@ function drawMineInformation(){
 	ctx.fillText("mine stats", left+4*HUD_IMAGE_WIDTH, canvas.height - bottom)
 	ctx.drawImage(mineImage, left+4*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT);
 
-	ctx.fillText("Max Health: " + mineMaxHealth, left + 5*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
-	ctx.fillText("Gold Production/Sec: " + mineYield.toFixed(2), left + 5*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing*2);
+	ctx.fillText(Mine.upgradeStrings[1] + Mine.upgradeVals[1], left + 5*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
+	ctx.fillText(Mine.upgradeStrings[2] + Mine.upgradeVals[2], left + 5*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing*2);
 
-	if (upgradeHover(2)){
+	var upgradeNum = upgradeHover(Mine.numberOfUpgrades);
+	if (upgradeNum){
+		changeCursor("pointer");
 		ctx.fillStyle = "#aa0000";
-		ctx.fillText("Gold: " + Math.floor(player.gold) + "(-" + upgradeCost + ")", left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
+		ctx.fillText("Gold: " + Math.floor(player.gold) + "(-" + Mine.upgradeCosts[upgradeNum] + ")", 
+			left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
 	} else {
 		ctx.fillStyle = "#00aa00";
 		ctx.fillText("Gold: " + Math.floor(player.gold), left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
@@ -1018,29 +1021,29 @@ function drawTowerInformation(){
 	ctx.fillText("tower stats", left+4*HUD_IMAGE_WIDTH - 5, canvas.height - bottom)
 	ctx.drawImage(towerImage, left + HUD_IMAGE_WIDTH*4 - 6, canvas.height - HUD_HEIGHT);
 
-	ctx.fillText("Max Health: " + towerMaxHealth, left + 5*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
-	ctx.fillText("AttackSpeed: " + towerAttackSpeed.toFixed(2), left + 5*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing*2);
-	ctx.fillText("Damage: " + towerDamage, left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
-	ctx.fillText("Range: " + towerRange, left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + 2*spacing);
-
-	if (upgradeHover(4)){
-		ctx.fillStyle = "#aa0000";
-		ctx.fillText("Gold: " + Math.floor(player.gold) + "(-" + upgradeCost + ")", left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
-	} else {
-		ctx.fillStyle = "#00aa00";
-		ctx.fillText("Gold: " + Math.floor(player.gold), left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
-	}
-
+	ctx.fillText(Tower.upgradeStrings[1] + Tower.upgradeVals[1], left + 5*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
+	ctx.fillText(Tower.upgradeStrings[2] + Tower.upgradeVals[2].toFixed(2), left + 5*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing*2);
+	ctx.fillText(Tower.upgradeStrings[3] + Tower.upgradeVals[3], left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
+	ctx.fillText(Tower.upgradeStrings[4] + Tower.upgradeVals[4], left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + 2*spacing);
+	
 	ctx.font = "25px sans-serif";
 	ctx.fillStyle = "#2a5393";
-
 	ctx.fillText("⊞", left + 5*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + spacing);
 	ctx.fillText("⊞", left + 5*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + 2*spacing);
 	ctx.fillText("⊞", left + 7*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + spacing);
 	ctx.fillText("⊞", left + 7*HUD_IMAGE_WIDTH - 25, canvas.height - HUD_HEIGHT + 2*spacing);
 
-	
-
+	ctx.font = "bold 20px  sans-serif";
+	var upgradeNum = upgradeHover(Tower.numberOfUpgrades);
+	if (upgradeNum){
+		changeCursor("pointer");
+		ctx.fillStyle = "#aa0000";
+		ctx.fillText("Gold: " + Math.floor(player.gold) + "(-" + Tower.upgradeCosts[upgradeNum] + ")", 
+			left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
+	} else {
+		ctx.fillStyle = "#00aa00";
+		ctx.fillText("Gold: " + Math.floor(player.gold), left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
+	}
 }
 
 function drawFortressInformation(){
@@ -1057,7 +1060,9 @@ function drawFortressInformation(){
 	// ctx.fillText("Damage: " + fortressDamage, left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
 	// ctx.fillText("Range: " + fortressRange, left + 7*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + 2*spacing);
 
-	if (upgradeHover(1)){
+	var upgradeNum = upgradeHover(Fortress.numberOfUpgrades);
+	if (upgradeNum){
+		changeCursor("pointer");
 		ctx.fillStyle = "#aa0000";
 		ctx.fillText("Gold: " + Math.floor(player.gold) + "(-" + upgradeCost + ")", left + 8*HUD_IMAGE_WIDTH, canvas.height - HUD_HEIGHT + spacing);
 	} else {
@@ -1110,28 +1115,28 @@ function checkForUpgradeRequests(){
 	var upgradeNumber = null;
 	switch(selectedHUDElement){
 		case UNIT:
-			upgradeNumber = upgradeHover(5);
+			upgradeNumber = upgradeHover(Unit.numberOfUpgrades);
 			if (upgradeNumber && player.gold >= Unit.upgradeCosts[upgradeNumber]) {
  				player.gold -= Unit.upgradeCosts[upgradeNumber];
  				upgradeUnits(upgradeNumber);
  			}
 			break;
 		case MINE:
-			upgradeNumber = upgradeHover(2);
+			upgradeNumber = upgradeHover(Mine.numberOfUpgrades);
 			if (upgradeNumber && player.gold >= upgradeCost) {
 				player.gold -= upgradeCost;
 				upgradeMines(upgradeNumber);
  			}
 			break;
 		case TOWER:
-			upgradeNumber = upgradeHover(4);
+			upgradeNumber = upgradeHover(Tower.numberOfUpgrades);
 			if (upgradeNumber && player.gold >= upgradeCost) {
- 				player.gold -= upgradeCost;
+ 				player.gold -= Tower.upgradeCosts[upgradeNumber];
  				upgradeTowers(upgradeNumber);
  			}
 			break;
 		case FORTRESS:
-			upgradeNumber = upgradeHover(4);
+			upgradeNumber = upgradeHover(Fortress.numberOfUpgrades);
 			if (upgradeNumber && player.gold >= upgradeCost) {
  				player.gold -= upgradeCost;
  				upgradeFortress(upgradeNumber);
@@ -1141,72 +1146,22 @@ function checkForUpgradeRequests(){
 }
 
 function upgradeUnits(n){
-	Unit.upgrade(n)
-	gameobject.upgradeUnits(player.ID, n, Unit.upgradeVals[n], false)
+	Unit.upgrade(n);
+	gameobject.upgradeUnits(player.ID, n, Unit.upgradeVals[n], false);
 }
 
 function upgradeMines(n){
-	switch(n){
-		case 1:
-			gameobject.upgradeMines(player.ID, 'maxHealth', mineMaxHealth + 20, false);
-			mineMaxHealth += 20;
-			mineMaxHealthLevel++;
-			break;
-		case 2:
-			gameobject.upgradeMines(player.ID, 'yield', mineYield + 0.4, false);
-			mineYield += 0.4;
-			mineYieldLevel++;
-			break;
-	}
+	Mine.upgrade(n);
+	gameobject.upgradeMines(player.ID, n, Mine.upgradeVals[n], false);
 }
-
 function upgradeTowers(n){
-	switch(n){
-		case 1:
-			gameobject.upgradeTowers(player.ID, 'maxHealth', towerMaxHealth + 20, false);
-			towerMaxHealth += 20;
-			towerMaxHealthLevel++;
-			break;
-		case 2:
-			gameobject.upgradeTowers(player.ID, 'attackSpeed', towerAttackSpeed + 0.4, false);
-			towerAttackSpeed += 0.4;
-			towerAttackSpeedLevel++;
-			break;
-		case 3:
-			gameobject.upgradeTowers(player.ID, 'damage', towerDamage + 2, false);
-			towerDamage += 2;
-			towerDamageLevel++;
-			break;
-		case 4:
-			gameobject.upgradeTowers(player.ID, 'range', towerRange + 10, false);
-			towerRange += 10;
-			towerRangeLevel++;
-			break;
-	}
+	Tower.upgrade(n);
+	gameobject.upgradeTowers(player.ID, n, Tower.upgradeVals[n], false);
 }
 function upgradeFortress(n){
-	switch(n){
-		case 1:
-			gameobject.upgradeFortress(player.ID, 'maxHealth', fortressMaxHealth + 30, false);
-			fortressMaxHealth += 30;
-			fortressMaxHealthLevel++;
-			break;
-		case 2:
-			gameobject.upgradeFortress(player.ID, 'attackSpeed', fortressAttackSpeed + 0.4, false);
-			fortressAttackSpeed += 0.4;
-			fortressAttackSpeedLevel++;
-			break;
-		case 3:
-			gameobject.upgradeFortress(player.ID, 'damage', fortressDamage + 5, false);
-			fortressDamage += 5;
-			fortressDamageLevel++;
-			break;
-		case 4:
-			gameobject.upgradeFortress(player.ID, 'range', fortressRange + 10, false);
-			fortressRange += 10;
-			fortressRangeLevel++;
-			break;
-	}
+	Fortress.upgrade(n);
+	gameobject.upgradeFortress(player.ID, n, Fortress.upgradeVals[n], false)
+
 }
 
 function changeCursor(value){

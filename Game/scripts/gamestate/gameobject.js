@@ -280,96 +280,52 @@ var Gameobject = function() {
 	};
 	
 	// Upgrade all the units of a player
-	this.upgradeUnits = function(playerID, upgradeNum, value, silent) {	
+	this.upgradeUnits = function(playerID, upgradeIndex, value, silent) {	
 		this.getPlayer(playerID).units.forEach(function(u){
-			u.upgradeStat(upgradeNum, value);
+			u.upgradeStat(upgradeIndex, value);
 		});
 		if (!silent){
 			var from = (this.isServer)? -1 : playerID;
-			this.changes.push({type: 'upgradeUnits', from: from, to: playerID, upgrade: upgradeNum, value: value});
+			this.changes.push({type: 'upgradeUnits', from: from, to: playerID, upgrade: upgradeIndex, value: value});
 		}
 	};
 	
 	// Upgrade all the mines of a player
-	this.upgradeMines = function(playerID, type, value, silent) {
-		var from = (this.isServer)? -1 : playerID;
-		var p = this.getPlayer(playerID);
-		for (var i = 0; i < p.buildings.length; i++) {
-			var b = p.buildings[i];
-			if (!b.type == 'mine')
-				continue;
-			
-			switch (type) {
-			case 'maxHealth':
-				var change = value - b.maxHealth;
-				b.maxHealth = value;
-				b.health += change;
-				break;
-			case 'yield':
-				b.yield = value;
-				break;
-			}
+	this.upgradeMines = function(playerID, upgradeIndex, value, silent) {
+		this.getPlayer(playerID).buildings.forEach(function(b){
+			if (b.type == "Mine") //This should be switched to constant
+				b.upgradeStat(upgradeIndex, value);
+		});
+		if (!silent){
+			var from = (this.isServer)? -1 : playerID;
+			this.changes.push({type: 'upgradeMines', from: from, to: playerID, upgrade: upgradeIndex, value: value});
 		}
-		if (!silent)
-			this.changes.push({type: 'upgradeMines', from: from, to: playerID, upgrade: type, value: value});
 	};
 	
 	// Upgrade all the towers of a player
-	this.upgradeTowers = function(playerID, type, value, silent) {
-		var from = (this.isServer)? -1 : playerID;
-		var p = this.getPlayer(playerID);
-		for (var i = 0; i < p.buildings.length; i++) {
-			var b = p.buildings[i];
-			if (!b.type == 'tower')
-				continue;
-			
-			switch (type) {
-			case 'maxHealth':
-				var change = value - b.maxHealth;
-				b.maxHealth = value;
-				b.health += change;
-				break;
-			case 'attackSpeed':
-				b.attackSpeed = value;
-				break;
-			case 'damage':
-				b.damage = value;
-				break;
-			case 'range':
-				b.range = value;
-				break;
-			}
+	this.upgradeTowers = function(playerID, upgradeIndex, value, silent) {
+		this.getPlayer(playerID).buildings.forEach(function(b){
+			if (b.type == "Tower") //This should be switched to constant
+				b.upgradeStat(upgradeIndex, value);
+		});
+		if (!silent){
+			var from = (this.isServer)? -1 : playerID;
+			this.changes.push({type: 'upgradeTowers', from: from, to: playerID, upgrade: upgradeIndex, value: value});
 		}
-		if (!silent)
-			this.changes.push({type: 'upgradeTowers', from: from, to: playerID, upgrade: type, value: value});
 	};
 	
 	// Upgrade a player's fortress
-	this.upgradeFortress = function(playerID, type, value, silent) {
-		var from = (this.isServer)? -1 : playerID;
-		var p = this.getPlayer(playerID);
-		var b = p.buildings[0];
-		if (!b.type == 'fortress')
+	this.upgradeFortress = function(playerID, upgradeIndex, value, silent) {
+		this.getPlayer(playerID).buildings.some(function(b){
+			if (b.type == "Fortress"){ //This should be switched to constant
+				b.upgradeStat(upgradeIndex, value);
+				return true;
+			}
 			return false;
-		
-		switch (type) {
-		case 'maxHealth':
-			var change = value - b.maxHealth;
-			b.maxHealth = value;
-			b.health += change;
-			break;
-		case 'attackSpeed':
-			b.attackSpeed = value;
-			break;
-		case 'damage':
-			b.damage = value;
-			break;
-		case 'range':
-			b.range = value;
-			break;
+		});
+		if (!silent){
+			var from = (this.isServer)? -1 : playerID;
+			this.changes.push({type: 'upgradeFortress', from: from, to: playerID, upgrade: upgradeIndex, value: value});
 		}
-		
-		if (!silent)
-			this.changes.push({type: 'upgradeFortress', from: from, to: playerID, upgrade: type, value: value});
 	};
 };

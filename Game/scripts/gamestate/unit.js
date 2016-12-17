@@ -119,6 +119,8 @@ var ATTACK_SPEED = Unit.ATTACK_SPEED = 3;
 var RANGE = Unit.RANGE =  4 ; 
 var DAMAGE = Unit.DAMAGE = 5;
 
+Unit.numberOfUpgrades = 5;
+
 Unit.upgradeStrings = [];
 Unit.upgradeStrings[MAX_HEALTH] = "Max Health: ";
 Unit.upgradeStrings[SPEED] = "Speed: ";
@@ -135,10 +137,10 @@ Unit.upgradeVals[DAMAGE] = 1;
 
 Unit.upgradeCosts = [];
 Unit.upgradeCosts[MAX_HEALTH] = 25;
-Unit.upgradeCosts[SPEED] = 30;
-Unit.upgradeCosts[ATTACK_SPEED] = 35;
-Unit.upgradeCosts[RANGE] = 40;
-Unit.upgradeCosts[DAMAGE] = 45;
+Unit.upgradeCosts[SPEED] = 25;
+Unit.upgradeCosts[ATTACK_SPEED] = 25;
+Unit.upgradeCosts[RANGE] = 25;
+Unit.upgradeCosts[DAMAGE] = 25;
 
 Unit.upgradeAmount = [];
 Unit.upgradeAmount[MAX_HEALTH] = 25;
