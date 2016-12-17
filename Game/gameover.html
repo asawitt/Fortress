@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src='./Game/JS/HighScores.js'></script>
+		<style type="text/css">
+			 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+			 html {
+			 	background-image: url(./Login-Page/images/svg1.jpg);
+			 	background-size: 100%;
+			 }
+			.main-page 
+			{
+			  width: 360px;
+			  padding: 8% 0 0;
+			  margin: auto;
+			}
+			.form 
+			{
+			  position: relative;
+			  z-index: 1;
+			  background: #FFFFFF;
+			  max-width: 360px;
+			  margin: 0 auto 100px;
+			  padding: 45px;
+			  text-align: center;
+			  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+			}
+			.form input 
+			{
+			  font-family: "Roboto", sans-serif;
+			  outline: 0;
+			  background: #f2f2f2;
+			  width: 100%;
+			  border: 0;
+			  margin: 0 0 15px;
+			  padding: 15px;
+			  box-sizing: border-box;
+			  font-size: 14px;
+			}
+			button 
+			{
+			  font-family: "Roboto", sans-serif;
+			  text-transform: uppercase;
+			  outline: 0;
+			  background: #2ECC71;
+			  width: 100%;
+			  border: 0;
+			  padding: 15px;
+			  color: #FFFFFF;
+			  font-size: 14px;
+			  -webkit-transition: all 0.3 ease;
+			  transition: all 0.3 ease;
+			  cursor: pointer;
+			}
+			.form button:hover,.form button:active,.form button:focus 
+			{
+			  background: #2ECC71;
+			}
+			.form .message 
+			{
+			  margin: 15px 0 0;
+			  color: #b3b3b3;
+			  font-size: 12px;
+			}
+			.form .message a 
+			{
+			  color: #2ECC71;
+			  text-decoration: none;
+			}
+			.form .register-form 
+			{
+			}
+			.container 
+			{
+			  position: relative;
+			  z-index: 1;
+			  max-width: 300px;
+			  margin: 0 auto;
+			}
+			.container:before, .container:after 
+			{
+			  content: "";
+			  display: block;
+			  clear: both;
+			}
+			.container .info 
+			{
+			  margin: 50px auto;
+			  text-align: center;
+			}
+			.container .info h1 
+			{
+			  margin: 0 0 15px;
+			  padding: 0;
+			  font-size: 36px;
+			  font-weight: 300;
+			  color: #1a1a1a;
+			}
+			.container .info span 
+			{
+			  color: #4d4d4d;
+			  font-size: 12px;
+			}
+			.container .info span a 
+			{
+			  color: #000000;
+			  text-decoration: none;
+			}
+			.container .info span .fa 
+			{
+			  color: #EF3B3A;
+			}
+		
+			
+			#errorLabel {
+				color: red;
+				font-size: 10pt;
+			}
+			h1 {
+			  font-family: "Roboto", sans-serif;
+
+			}
+			table {
+				border: 1px solid black;
+				border-collapse: collapse;
+			}
+			td {
+				border: 1px solid black;
+			}
+			#usersScore {
+				border: 3px solid #2ECC71;
+			}
+		</style>
+	 	<title>Fortress.io</title>
+	</head>
+	<body>
+  		<div class="main-page">
+	  		<div class="form">
+	  		<img src="./Login-Page/images/fortress307.png" alt="logo" />
+		    	<h1> GAME OVER </h1>
+		    	
+		    	<table style="width:100%">
+				  <thead>
+				  	<th>#</th>
+				    <th>Username</th>
+				    <th>Score</th> 
+				  </thead>
+				  <tbody id="scoresTableBody">
+
+				  </tbody>
+				</table>
+				<br>
+				<button id="playAgainBtn"> Play Again? </button>
+  			</div>
+ 	 	</div>
+	</body>
+</html>
+
+
+

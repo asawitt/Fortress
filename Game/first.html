@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body 
+			{
+				text-align: left;
+		        font-family: verdana, arial, 'sans sherif';
+		        margin: 0px auto;
+		    }
+
+		    #game
+		    {
+		    	background-size: 100%;
+		    	background-image: url(images/svg1.jpg);
+		        display: block;
+		        outline: 1px solid red;
+		    }
+
+		</style>
+		<title>Fortress.io</title>
+		<meta charset="UTF-8">
+	</head>
+
+<body>
+
+	<!-- hey Can't open console without this for some reason  -->
+	<canvas id="game" tabindex="0" oncontextmenu="return false;"></canvas>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	
+	<script src="scripts/application/utility.js"></script>
+	<script src="scripts/gamestate/building.js"></script>
+	<script src="scripts/gamestate/ray.js"></script>
+	<script src="scripts/gamestate/unit.js"></script>
+	<script src="scripts/gamestate/player.js"></script>
+	<script src="scripts/gamestate/gameobject.js"></script>
+	<script src="scripts/gamestate/client.js"></script>
+	
+	<script src="scripts/application/game.js"></script>
+	<script src="scripts/application/application.js"></script>
+	
+	
+	
+</body>
+</html>
