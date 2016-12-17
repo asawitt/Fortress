@@ -1,0 +1,8 @@
+#sftp-config files#
+sftp-config.json
+
+#PHP MYSQL functions/credentials
+MYSQL.php
+
+
+node-modules
